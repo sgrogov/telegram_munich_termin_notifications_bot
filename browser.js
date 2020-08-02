@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 const check = async (groupName, itemNames) => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
   await page.goto('https://www22.muenchen.de/fs/termin/index.php');
@@ -45,7 +45,6 @@ const check = async (groupName, itemNames) => {
   );
   if (typeof errorMessage === 'string') throw new Error(errorMessage);
 
-  await page.waitForNavigation({ waitUntil: 'networkidle2' });
   await sleep(1000);
   const bookableDays = await page.$$('.nat_calendar.nat_calendar_weekday_bookable');
   const count = bookableDays.length;
