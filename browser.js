@@ -3,7 +3,9 @@ const puppeteer = require('puppeteer');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 const check = async (groupName, itemNames) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
   const page = await browser.newPage();
 
   await page.goto('https://www22.muenchen.de/fs/termin/index.php');
